@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">RNM-Universe</string>
+
+    <string name="something_went_wrong">Oops!! Something went wrong!!</string>
+    <string name="try_again">Please Try again</string>
+    <string name="ok">Okay</string>
+    <string name="no_internet">Lost network connection</string>
+    <string name="retry">Retry</string>
+</resources>
