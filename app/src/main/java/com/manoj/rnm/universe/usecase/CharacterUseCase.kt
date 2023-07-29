@@ -1,26 +1,17 @@
 package com.manoj.rnm.universe.usecase
 
-import com.manoj.rnm.universe.repo.CharacterRepository
-import com.manoj.rnm.universe.ui.ListUIItem
+import androidx.paging.PagingData
+import com.manoj.rnm.universe.repo.CharactersDataRepository
+import com.manoj.rnm.universe.ui.CharacterUIItem
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class CharacterUseCase @Inject constructor(
-    private val characterRepository: CharacterRepository
+    private val characterRepository: CharactersDataRepository
 ){
-
-    suspend operator fun invoke():Flow<List<ListUIItem>> {
-        val listUIItems = mutableListOf<ListUIItem>()
-        return characterRepository.loadCharacterData().map { characterDataResponse ->
-            characterDataResponse.results.map { characterItem ->
-                val item = ListUIItem(
-                    characterItem.name,
-                    characterItem.imageUrl
-                )
-                listUIItems.add(item)
-            }
-            listUIItems
-        }
+    operator fun invoke(): Flow<PagingData<CharacterUIItem>> {
+        return characterRepository.getCharacterList().flowOn(Dispatchers.IO)
     }
 }

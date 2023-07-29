@@ -2,9 +2,12 @@ package com.manoj.rnm.universe.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.manoj.rnm.universe.usecase.CharacterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -18,22 +21,12 @@ class CharacterItemsViewModel @Inject constructor(
     private val characterUseCase: CharacterUseCase
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<UIState<List<ListUIItem>>>(UIState.Loading)
-    val uiState: StateFlow<UIState<List<ListUIItem>>> = _uiState
+    private var _characterPagingDataFlow : Flow<PagingData<CharacterUIItem>> = load()
+    val characterPagingDataFlow: Flow<PagingData<CharacterUIItem>> = _characterPagingDataFlow
 
-    fun loadCharacterData() {
-        viewModelScope.launch {
-            characterUseCase.invoke()
-                .flowOn(Dispatchers.IO)
-                .onStart {
-                    _uiState.value = UIState.Loading
-                }
-                .catch {
-                    _uiState.value = UIState.Error(it)
-                }
-                .collect {
-                    _uiState.value = UIState.Success(it)
-                }
-        }
+    fun onRetry() {
+        _characterPagingDataFlow = load()
     }
+
+    private fun load() = characterUseCase.invoke()
 }

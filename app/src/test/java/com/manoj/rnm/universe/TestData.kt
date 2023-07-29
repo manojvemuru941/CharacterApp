@@ -3,15 +3,16 @@ package com.manoj.rnm.universe
 import com.manoj.rnm.universe.api.model.CharacterDataResponse
 import com.manoj.rnm.universe.api.model.CharacterResultDataResponse
 import com.manoj.rnm.universe.api.model.CharacterResultInfoResponse
-import com.manoj.rnm.universe.ui.ListUIItem
+import com.manoj.rnm.universe.ui.CharacterUIItem
 
 object TestData {
 
     private val listCharacterDataResponse = listOf(
         CharacterDataResponse(
-            id = 0,
+            id = 1,
             name = "Rick Sanchez",
             species = "Human",
+            status = "Alive",
             gender = "Male",
             imageUrl = "some url",
             episode = listOf("one", "two")
@@ -20,6 +21,7 @@ object TestData {
             id = 2,
             name = "Rick Sanchez2",
             species = "Human2",
+            status = "Alive",
             gender = "Male",
             imageUrl = "some url2",
             episode = listOf("one2", "two2")
@@ -36,14 +38,24 @@ object TestData {
         results = listCharacterDataResponse
     )
 
-    val listUIItem = listOf(
-        ListUIItem(
-            title = "Rick Sanchez",
-            url = "some url"
+    val characterUIItems = listOf(
+        CharacterUIItem(
+            id = 1,
+            name = "Rick Sanchez",
+            species = "Human",
+            status = "Alive",
+            gender = "Male",
+            imageUrl = "some url",
+            episode = listOf("one", "two")
         ),
-        ListUIItem(
-            title = "Rick Sanchez2",
-            url = "some url2"
+        CharacterUIItem(
+            id = 2,
+            name = "Rick Sanchez2",
+            species = "Human2",
+            status = "Alive",
+            gender = "Male",
+            imageUrl = "some url2",
+            episode = listOf("one2", "two2")
         )
     )
 }

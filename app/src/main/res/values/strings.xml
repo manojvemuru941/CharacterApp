@@ -6,4 +6,9 @@
     <string name="ok">Okay</string>
     <string name="no_internet">Lost network connection</string>
     <string name="retry">Retry</string>
+
+    <string name="gender">Gender</string>
+    <string name="status">Status</string>
+    <string name="species">Species</string>
+    <string name="episode">Episodes</string>
 </resources>
